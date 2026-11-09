@@ -18,7 +18,7 @@ let response = generate_not_found_json_response_with_message!("Record missing");
 // HTTP 404: {"status":404,"message":"Record missing"}
 ```
 
-All existing status-specific macro names are retained. Each `generate_<status>_json_response!` accepts either no arguments or a data value. Each `generate_<status>_json_response_with_message!` accepts a message and optional data. `make_json_response!` accepts a numeric status, optional message, and optional data. `generate_response_content!` accepts the same arguments and returns `(StatusCode, StandardResponse<T>)` instead of an HTTP response. Invalid numeric statuses panic; negative or overflowing values are rejected rather than truncated.
+All existing status-specific macro names are retained. Each `generate_<status>_json_response!` accepts either no arguments or a data value. Each `generate_<status>_json_response_with_message!` accepts a message and optional data. `make_json_response!` accepts a numeric status, optional message, and optional data. `generate_response_content!` accepts the same arguments and returns `(StatusCode, StandardResponse<T>)` instead of an HTTP response. Status arguments must be compile-time numeric constants of type `u16` (unsuffixed literals also work). Invalid statuses outside `100..=999`, negative or overflowing literals, and runtime status expressions are compilation errors. Message and payload expressions can use runtime values.
 
 `StandardResponse<T>` exposes `status: i32`, `message: String`, and `data: Option<T>`; absent data is omitted from JSON. Payloads only need `serde::Serialize` when generating HTTP responses. Enable the optional `utoipa` feature for OpenAPI schema support.
 
