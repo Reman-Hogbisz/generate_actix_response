@@ -1,0 +1,22 @@
+[package]
+name = "generate_actix_response"
+version = "0.1.0"
+edition = "2024"
+description = "Application-independent JSON response macros for Actix Web"
+repository = "https://github.com/Reman-Hogbisz/generate_actix_response"
+readme = "README.md"
+publish = false
+
+[dependencies]
+actix-web = { version = "4", default-features = false }
+pastey = "0.2.3"
+serde = { version = "1", features = ["derive"] }
+utoipa = { version = "5", optional = true }
+
+[features]
+default = []
+utoipa = ["dep:utoipa"]
+
+[dev-dependencies]
+actix-web = { version = "4", default-features = false, features = ["macros"] }
+serde_json = "1"
